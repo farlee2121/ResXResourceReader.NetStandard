@@ -1,6 +1,6 @@
 Why would you want this library?
 --------------------------------
-If you want to programmatically read/update a ResX file, the standard is to use the .NET classes `System.Resources.ResXResourceReader` and `System.Resources.ResXResourceWriter`. However these libraries are part of System.Windows.Forms :/ That is either a annoying extra dependency or a deal breaker for .Net Standard.
+If you want to programmatically read/update a ResX file, the standard is to use the `System.Resources.ResXResourceReader` and `System.Resources.ResXResourceWriter`. However these libraries are part of System.Windows.Forms. That is either a annoying extra dependency or a deal breaker for .Net Standard.
 
 This library separates those two classes from System.Windows.Forms and packages them for .Net Standard so you can easily include them across
 frameworks.
