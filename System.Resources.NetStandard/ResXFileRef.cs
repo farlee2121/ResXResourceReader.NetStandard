@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace System.Resources
+namespace System.Resources.NetStandard
 {
     /// <summary>
     ///  ResX File Reference class. This allows the developer to represent

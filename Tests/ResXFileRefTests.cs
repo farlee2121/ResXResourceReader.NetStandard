@@ -5,7 +5,7 @@
 using System.Text;
 using Xunit;
 
-namespace System.Resources.Tests
+namespace System.Resources.NetStandard.Tests
 {
     public class ResXFileRefTests : IClassFixture<ThreadExceptionFixture>
     {

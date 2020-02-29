@@ -6,7 +6,7 @@
 
 using System.Reflection;
 
-namespace System.Resources
+namespace System.Resources.NetStandard
 {
     internal interface IAliasResolver
     {

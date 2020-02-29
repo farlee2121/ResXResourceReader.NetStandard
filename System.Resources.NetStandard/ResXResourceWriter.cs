@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 
-namespace System.Resources
+namespace System.Resources.NetStandard
 {
     /// <summary>
     ///  ResX resource writer. See the text in "ResourceSchema" for more

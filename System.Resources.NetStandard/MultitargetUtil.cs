@@ -4,7 +4,7 @@
 
 #nullable disable
 
-namespace System.Resources
+namespace System.Resources.NetStandard
 {
     /// <summary>
     ///  Helper class supporting Multitarget type assembly qualified name resolution for ResX API.

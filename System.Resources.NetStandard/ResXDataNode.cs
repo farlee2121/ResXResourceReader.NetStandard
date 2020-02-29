@@ -19,7 +19,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml;
 
-namespace System.Resources
+namespace System.Resources.NetStandard
 {
     public sealed class ResXDataNode : ISerializable
     {

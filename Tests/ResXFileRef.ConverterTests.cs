@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using Xunit;
 
-namespace System.Resources.Tests
+namespace System.Resources.NetStandard.Tests
 {
     public class ResXFileRef_Converter : IClassFixture<ThreadExceptionFixture>
     {

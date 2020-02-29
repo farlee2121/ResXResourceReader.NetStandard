@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace System.Resources
+namespace System.Resources.NetStandard
 {
     /// <summary>
     ///  ResX resource reader.

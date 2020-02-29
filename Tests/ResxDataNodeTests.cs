@@ -4,7 +4,7 @@
 
 using Xunit;
 
-namespace System.Resources.Tests
+namespace System.Resources.NetStandard.Tests
 {
     public class ResxDataNodeTests : IClassFixture<ThreadExceptionFixture>
     {

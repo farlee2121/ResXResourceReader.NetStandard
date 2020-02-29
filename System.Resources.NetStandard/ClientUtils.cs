@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Numerics;
 
-namespace System.Resources
+namespace System.Resources.NetStandard
 {
     static internal class ClientUtils
     {

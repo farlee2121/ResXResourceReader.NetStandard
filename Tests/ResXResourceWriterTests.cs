@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace System.Resources.Tests
+namespace System.Resources.NetStandard.Tests
 {
     public class ResXResourceWriterTests : IClassFixture<ThreadExceptionFixture>
     {
