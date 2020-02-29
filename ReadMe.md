@@ -1,6 +1,27 @@
+Why would you want this library?
+--------------------------------
+If you want to programmatically read/update a ResX file, the standard is to use the .NET classes `System.Resources.ResXResourceReader` and `System.Resources.ResXResourceWriter`. However these libraries are part of System.Windows.Forms :/ That is either a annoying extra dependency or a deal breaker for .Net Standard.
 
-winforms source
+This library separates those two classes from System.Windows.Forms and packages them for .Net Standard so you can easily include them across
+frameworks.
+
+If you don't know a resx file is
+ - it is a way of shipping resources, like strings and files, with an assembly (project).
+ -  It simplifies messy file copy on build and relative runtime file references
+ - Is commonly used for managing translations and localized resources
+
+Sources
+-------
+These classes are almost directly copied from the open sourced winforms respository  
 https://github.com/dotnet/winforms/tree/b666dc7a94d8ac87a7d300cfb4fa86332fb79bae/src/System.Windows.Forms/src/System/Resources
 
-Change for lower netstandard version
-https://github.com/dotnet/winforms/commit/f9f414d72a4d00da3f709ec3b76521d2859e6d49
+However, I did revert [this change](https://github.com/dotnet/winforms/commit/f9f414d72a4d00da3f709ec3b76521d2859e6d49) in order to remove dependency on System.Numerics, which was limiting .Net Standard compatibility.
+
+I've also changed the namespace to System.Resources.NetStandard to avoid potential naming conflicts.  
+
+Examples
+--------
+See how to use `ResXResourceReader` and `ResXResourceWriter` at
+- https://docs.microsoft.com/en-us/dotnet/api/system.resources.resxresourcereader?view=netframework-4.8
+- https://docs.microsoft.com/en-us/dotnet/api/system.resources.resxresourcewriter?view=netframework-4.8
+- https://stackoverflow.com/questions/676312/modifying-resx-file-in-c-sharp
