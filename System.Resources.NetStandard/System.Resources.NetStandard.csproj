@@ -15,9 +15,7 @@
       These classes are the baked-in .NET classes to programmatically read/update a ResX file.
     </Description>
     <Authors>Spencer Farley</Authors>
-    <PackageLicenseExpression>
-      license-id=MIT
-    </PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/farlee2121/ResXResourceReader.NetStandard</RepositoryUrl>
   </PropertyGroup>
   
