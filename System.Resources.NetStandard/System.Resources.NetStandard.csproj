@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <!--Nuget Meta: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj-->
     <PackageId>ResXResourceReader.NetStandard</PackageId>
     <Title>ResXResourceReader.NetStandard</Title>
     <Description>
