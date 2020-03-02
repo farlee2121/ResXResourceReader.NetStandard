@@ -1,8 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard1.1</TargetFramework>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>ResXResourceReader.NetStandard</PackageId>
+    <Title>ResXResourceReader.NetStandard</Title>
+    <Description>
+      This library separates `System.Resources.ResXResourceReader` and `System.Resources.ResXResourceWriter` from System.Windows.Forms and packages them for .Net Standard so you can
+      easily include them across frameworks.
+
+      These classes are the baked-in .NET classes to programmatically read/update a ResX file.
+    </Description>
+    <Authors>Spencer Farley</Authors>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/farlee2121/ResXResourceReader.NetStandard</RepositoryUrl>
+  </PropertyGroup>
+  
 
   <ItemGroup>
     <Compile Update="ResxReader\SR.Designer.cs">
