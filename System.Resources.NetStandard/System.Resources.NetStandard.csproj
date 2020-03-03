@@ -5,18 +5,19 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <!--Nuget Meta: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj-->
+    <!--Nuget Meta: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj -->
     <PackageId>ResXResourceReader.NetStandard</PackageId>
     <Title>ResXResourceReader.NetStandard</Title>
+    
     <Description>
-      This library separates `System.Resources.ResXResourceReader` and `System.Resources.ResXResourceWriter` from System.Windows.Forms and packages them for .Net Standard so you can
-      easily include them across frameworks.
+      System.Resources.ResXResourceReader and System.Resources.ResXResourceWriter separated from System.Windows.Forms and packaged for .Net Standard.
 
       These classes are the baked-in .NET classes to programmatically read/update a ResX file.
     </Description>
     <Authors>Spencer Farley</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/farlee2121/ResXResourceReader.NetStandard</RepositoryUrl>
+    <PackageTags>ResX;ResXResourceReader;System.Resources;ResXResourceWriter;netstandard</PackageTags>
   </PropertyGroup>
   
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'" >
