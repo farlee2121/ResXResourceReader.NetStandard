@@ -1,3 +1,7 @@
+Install
+-------
+via Nuget: https://www.nuget.org/packages/ResXResourceReader.NetStandard/
+
 Why would you want this library?
 --------------------------------
 If you want to programmatically read/update a ResX file, the standard is to use the `System.Resources.ResXResourceReader` and `System.Resources.ResXResourceWriter`. However these libraries are part of System.Windows.Forms. That is either a annoying extra dependency or a deal breaker for .Net Standard.
