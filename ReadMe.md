@@ -1,3 +1,5 @@
+[![nuget](https://img.shields.io/nuget/v/ResXResourceReader.NetStandard.svg)](https://www.nuget.org/packages/ResXResourceReader.NetStandard/)
+
 Install
 -------
 via Nuget: https://www.nuget.org/packages/ResXResourceReader.NetStandard/
