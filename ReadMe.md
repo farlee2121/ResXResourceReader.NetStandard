@@ -1,4 +1,4 @@
-[![nuget](https://img.shields.io/nuget/v/ResXResourceReader.NetStandard.svg)](https://www.nuget.org/packages/ResXResourceReader.NetStandard/)
+[![nuget](https://img.shields.io/nuget/v/ResXResourceReader.NetStandard)](https://www.nuget.org/packages/ResXResourceReader.NetStandard/)
 ![build](https://github.com/farlee2121/ResXResourceReader.NetStandard/workflows/Build/badge.svg)
 
 Install
