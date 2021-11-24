@@ -13,11 +13,6 @@ namespace System.Resources.NetStandard
         private Hashtable      cachedAssemblies;
         private Hashtable      cachedTypes;
 
-        private static readonly string s_dotNetPath =
-            Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "dotnet\\shared");
-
-        private static readonly string s_dotNetPathX86 =
-            Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), "dotnet\\shared");
 
         internal AssemblyNamesTypeResolutionService(AssemblyName[] names)
         {
@@ -29,7 +24,6 @@ namespace System.Resources.NetStandard
             return GetAssembly(name, true);
         }
 
-        //
         public Assembly GetAssembly(AssemblyName name, bool throwOnError)
         {
             Assembly result = null;
@@ -187,7 +181,7 @@ namespace System.Resources.NetStandard
             {
                 // Only cache types from the shared framework  because they don't need to update.
                 // For simplicity, don't cache custom types
-                if (IsDotNetAssembly(result.Assembly.Location))
+                if (IsDotNetAssembly(result.Assembly))
                 {
                     cachedTypes[name] = result;
                 }
@@ -197,13 +191,13 @@ namespace System.Resources.NetStandard
         }
 
         /// <summary>
-        ///  This is matching %windir%\Microsoft.NET\Framework*, so both 32bit and 64bit framework will be covered.
+        ///  Check if the assembly is a .NET assembly, by checking the ProductAttribute value.
         /// </summary>
-        private bool IsDotNetAssembly(string assemblyPath)
+        private bool IsDotNetAssembly(Assembly assembly)
         {
-            return assemblyPath != null && (assemblyPath.StartsWith(s_dotNetPath, StringComparison.OrdinalIgnoreCase) ||
-                                            assemblyPath.StartsWith(s_dotNetPathX86,
-                                                StringComparison.OrdinalIgnoreCase));
+            var attribute = assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false).FirstOrDefault()
+                as AssemblyProductAttribute;
+            return attribute?.Product?.StartsWith("Microsoft® .NET") == true;
         }
 
         public void ReferenceAssembly(AssemblyName name)
