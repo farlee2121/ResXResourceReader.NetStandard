@@ -10,10 +10,9 @@ on:
 
 jobs:
   build:
-
     runs-on: ${{matrix.os}}
-
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
