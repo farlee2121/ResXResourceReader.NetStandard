@@ -51,7 +51,7 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ConvertFrom_ReadsFileAsString()
         {
-            var resxFileRefString = @"TestResources\Files\text.ansi.txt;System.String";
+            var resxFileRefString = @"TestResources/Files/text.ansi.txt;System.String";
             var expected = "Text";
             var converter = new ResXFileRef.Converter();
 
@@ -63,7 +63,7 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ConvertFrom_ReadsFileAsStringUsingEncodingFromRefString()
         {
-            var resxFileRefString = @"TestResources\Files\text.utf7.txt;System.String;utf-7";
+            var resxFileRefString = @"TestResources/Files/text.utf7.txt;System.String;utf-7";
             var expected = "Привет";
             var converter = new ResXFileRef.Converter();
 
@@ -75,7 +75,7 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ConvertFrom_ReadsFileAsByteArray()
         {
-            var resxFileRefString = @"TestResources\Files\text.ansi.txt;System.Byte[]";
+            var resxFileRefString = @"TestResources/Files/text.ansi.txt;System.Byte[]";
             var expected = "Text";
             var converter = new ResXFileRef.Converter();
 
@@ -87,7 +87,7 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ConvertFrom_ReadsFileAsMemoryStream()
         {
-            var resxFileRefString = @"TestResources\Files\text.ansi.txt;System.IO.MemoryStream";
+            var resxFileRefString = @"TestResources/Files/text.ansi.txt;System.IO.MemoryStream";
             var expected = "Text";
             var converter = new ResXFileRef.Converter();
 
@@ -99,7 +99,7 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ConvertFrom_ReadsFileAsIcon()
         {
-            var resxFileRefString = @"TestResources\Files\Error.ico;System.Drawing.Icon, System.Drawing.Common";
+            var resxFileRefString = @"TestResources/Files/Error.ico;System.Drawing.Icon, System.Drawing.Common";
             var converter = new ResXFileRef.Converter();
 
             var result = (Icon)converter.ConvertFrom(null, null, resxFileRefString);
@@ -111,8 +111,8 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ConvertFrom_ReadsFileAsIconWhenTypeIsBitmap()
         {
-            var bitmapIconRefString = @"TestResources\Files\Error.ico;System.Drawing.Bitmap, System.Drawing.Common";
-            var iconRefString = @"TestResources\Files\Error.ico;System.Drawing.Icon, System.Drawing.Common";
+            var bitmapIconRefString = @"TestResources/Files/Error.ico;System.Drawing.Bitmap, System.Drawing.Common";
+            var iconRefString = @"TestResources/Files/Error.ico;System.Drawing.Icon, System.Drawing.Common";
             var converter = new ResXFileRef.Converter();
 
             var iconResult = (Icon)converter.ConvertFrom(null, null, iconRefString);
@@ -124,7 +124,7 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ConvertFrom_ReadsFileAsBitmap()
         {
-            var resxFileRefString = @"TestResources\Files\ErrorControl.bmp;System.Drawing.Bitmap, System.Drawing.Common";
+            var resxFileRefString = @"TestResources/Files/ErrorControl.bmp;System.Drawing.Bitmap, System.Drawing.Common";
             var converter = new ResXFileRef.Converter();
 
             var result = (Bitmap)converter.ConvertFrom(null, null, resxFileRefString);
