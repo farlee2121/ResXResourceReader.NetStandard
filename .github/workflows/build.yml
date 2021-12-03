@@ -2,14 +2,18 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v2
