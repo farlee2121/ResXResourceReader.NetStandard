@@ -32,3 +32,10 @@ See how to use `ResXResourceReader` and `ResXResourceWriter` at
 - https://docs.microsoft.com/en-us/dotnet/api/system.resources.resxresourcereader?view=netframework-4.8
 - https://docs.microsoft.com/en-us/dotnet/api/system.resources.resxresourcewriter?view=netframework-4.8
 - https://stackoverflow.com/questions/676312/modifying-resx-file-in-c-sharp
+
+
+Gotchas
+-------
+
+- Versions 1.0.1 and below only work on windows. Thanks to genyx for contributing the cross-platform fix.
+- Bitmaps are only supported on windows or if you [separately install libgdiplus](https://www.ryadel.com/en/asp-net-core-linux-unable-to-load-dll-libgdiplus-gdiplus-dll-gdi-fix/). [Here](https://docs.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/6.0/system-drawing-common-windows-only#reason-for-change) is Microsoft's reasoning for why this issue won't be fixed.

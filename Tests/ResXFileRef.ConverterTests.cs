@@ -108,9 +108,10 @@ namespace System.Resources.NetStandard.Tests
             Assert.False(result.Size.IsEmpty);
         }
 
-        [Fact]
+        [SkippableFact]
         public void ConvertFrom_ReadsFileAsIconWhenTypeIsBitmap()
         {
+            Skip.IfNot(System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(Runtime.InteropServices.OSPlatform.Windows));
             var bitmapIconRefString = @"TestResources/Files/Error.ico;System.Drawing.Bitmap, System.Drawing.Common";
             var iconRefString = @"TestResources/Files/Error.ico;System.Drawing.Icon, System.Drawing.Common";
             var converter = new ResXFileRef.Converter();
@@ -121,9 +122,10 @@ namespace System.Resources.NetStandard.Tests
             Assert.Equal(iconResult.Size, bitmapResult.Size);
         }
 
-        [Fact]
+        [SkippableFact]
         public void ConvertFrom_ReadsFileAsBitmap()
         {
+            Skip.IfNot(System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(Runtime.InteropServices.OSPlatform.Windows));
             var resxFileRefString = @"TestResources/Files/ErrorControl.bmp;System.Drawing.Bitmap, System.Drawing.Common";
             var converter = new ResXFileRef.Converter();
 
