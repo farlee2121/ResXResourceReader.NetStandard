@@ -435,8 +435,14 @@ namespace System.Resources.NetStandard
 
                 if (readerTypeName != null &&
                     writerTypeName != null &&
-                    readerTypeName.Equals(readerType.FullName) &&
-                    writerTypeName.Equals(writerType.FullName))
+                    (
+                        (readerTypeName.Equals(readerType.FullName) &&
+                        writerTypeName.Equals(writerType.FullName))
+                        ||
+                        // backwards compatability for files that were written with the System.Resources.NetStandard namespace
+                        (readerTypeName.Equals(ResXConstants.ResHeaderReaderTypeName) &&
+                        writerTypeName.Equals(ResXConstants.ResHeaderWriterTypeName))
+                    ))
                 {
                     validFile = true;
                 }

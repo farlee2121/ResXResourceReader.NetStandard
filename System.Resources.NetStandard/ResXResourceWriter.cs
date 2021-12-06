@@ -222,7 +222,7 @@ namespace System.Resources.NetStandard
                 xmlTextWriter.WriteAttributeString(NameStr, ReaderStr);
                 xmlTextWriter.WriteStartElement(ValueStr);
                 {
-                    xmlTextWriter.WriteString(MultitargetUtil.GetAssemblyQualifiedName(typeof(ResXResourceReader), typeNameConverter));
+                    xmlTextWriter.WriteString(ResXConstants.ResHeaderReader);
                 }
                 xmlTextWriter.WriteEndElement();
             }
@@ -232,7 +232,7 @@ namespace System.Resources.NetStandard
                 xmlTextWriter.WriteAttributeString(NameStr, WriterStr);
                 xmlTextWriter.WriteStartElement(ValueStr);
                 {
-                    xmlTextWriter.WriteString(MultitargetUtil.GetAssemblyQualifiedName(typeof(ResXResourceWriter), typeNameConverter));
+                    xmlTextWriter.WriteString(ResXConstants.ResHeaderWriter);
                 }
                 xmlTextWriter.WriteEndElement();
             }

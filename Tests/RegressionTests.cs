@@ -19,6 +19,16 @@ namespace System.Resources.NetStandard.Tests
                 }
             });
         }
+
+        [Theory]
+        [InlineData("1.0.24.0")]
+        [InlineData("4.0.0.0")]
+        [InlineData("2.0.3500.0")]
+        public void ReadNotEffectedByResheaderVersions(string version){
+            string resx = Tests.ResxContants.DefaultResxWithVersion(new System.Version(version));   
+            var resReader = ResXResourceReader.FromFileContents(resx);
+            resReader.GetEnumerator();
+        }
     }
 
 }
