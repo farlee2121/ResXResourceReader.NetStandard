@@ -11,7 +11,7 @@
     
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\ResXResourceReader.NetStandard.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\ResXResourceReader.NetStandard.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
