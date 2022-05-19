@@ -6,10 +6,12 @@
 
   <PropertyGroup>
     <!--Nuget Meta: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj -->
-    <PackageId>ResXResourceReader.NetStandard</PackageId>
-    <Title>ResXResourceReader.NetStandard</Title>
-     
+    <PackageId>ResXResourceReader.NetStandard.StrongName</PackageId>
+    <Title>ResXResourceReader.NetStandard (Strong Named)</Title>
+    
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\ResXResourceReader.NetStandard.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -18,7 +20,8 @@
   
 
   <ItemGroup>
-    <Compile Update="ResxReader\SR.Designer.cs">
+	<Compile Include="..\System.Resources.NetStandard\**\*.cs" Exclude="..\System.Resources.NetStandard\obj\**\*.cs" />
+    <Compile Update="..\System.Resources.NetStandard\ResxReader\SR.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SR.resx</DependentUpon>
@@ -26,18 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ResxReader\SR.resx">
+    <EmbeddedResource Update="..\System.Resources.NetStandard\ResxReader\SR.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>System.Resources.Tests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-
+	
   <ItemGroup>
     <None Include="..\README.md">
       <Pack>True</Pack>
