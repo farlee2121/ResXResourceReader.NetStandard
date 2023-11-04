@@ -956,6 +956,13 @@ namespace System.Resources.NetStandard
                 return result;
             }
 
+            // hard-code the assembly name for ResXFileRef and replace it with our own type instead of loading the one from System.Windows.Forms
+            if (name == "System.Resources.ResXFileRef, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")
+            {
+                result = typeof(ResXFileRef);
+                return result;
+            }
+
             // Missed in cache, try to resolve the type from the reference assemblies.
             if (name.IndexOf(',') != -1)
             {
