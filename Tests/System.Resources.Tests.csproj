@@ -17,11 +17,34 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.2" />
     <PackageReference Include="Xunit.SkippableFact" Version="1.4.13" />
+	  <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestResources\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="TestResources\Files\ResxWithFileRef.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ResxWithFileRef.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Example.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Example.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Example.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Example.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

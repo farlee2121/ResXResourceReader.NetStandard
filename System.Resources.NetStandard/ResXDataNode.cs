@@ -47,13 +47,13 @@ namespace System.Resources.NetStandard
         // No public property to force using constructors for the following reasons:
         // 1. one of the constructors needs this field (if used) to initialize the object, make it consistent with the other ctrs to avoid errors.
         // 2. once the object is constructed the delegate should not be changed to avoid getting inconsistent results.
-        private Func<Type, string> typeNameConverter;
+        private Func<Type, string> typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(null);
 
         private ResXDataNode()
         {
         }
 
-        internal ResXDataNode DeepClone()
+        public ResXDataNode DeepClone()
         {
             return new ResXDataNode
             {
@@ -87,7 +87,7 @@ namespace System.Resources.NetStandard
                 throw (new ArgumentException(nameof(name)));
             }
 
-            this.typeNameConverter = typeNameConverter;
+            this.typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(typeNameConverter);
 
             Type valueType = (value == null) ? typeof(object) : value.GetType();
             if (value != null && !valueType.IsSerializable)
@@ -116,7 +116,7 @@ namespace System.Resources.NetStandard
 
             this.name = name;
             this.fileRef = fileRef ?? throw new ArgumentNullException(nameof(fileRef));
-            this.typeNameConverter = typeNameConverter;
+            this.typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(typeNameConverter);
         }
 
         internal ResXDataNode(DataNodeInfo nodeInfo, string basePath)
@@ -864,8 +864,8 @@ namespace System.Resources.NetStandard
         private Hashtable cachedAssemblies;
         private Hashtable cachedTypes;
 
-        private static readonly string s_dotNetPath = Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "dotnet\\shared");
-        private static readonly string s_dotNetPathX86 = Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), "dotnet\\shared");
+        private static readonly string s_dotNetPath = Environment.GetEnvironmentVariable("ProgramFiles") != null ? Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "dotnet", "shared") : null;
+        private static readonly string s_dotNetPathX86 = Environment.GetEnvironmentVariable("ProgramFiles(x86)") != null ? Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), "dotnet", "shared") : null;
 
         internal AssemblyNamesTypeResolutionService(AssemblyName[] names)
         {
@@ -953,6 +953,13 @@ namespace System.Resources.NetStandard
             if (cachedTypes.Contains(name))
             {
                 result = cachedTypes[name] as Type;
+                return result;
+            }
+
+            // Replace the WinForms ResXFileRef with the copy in this library
+            if (name.StartsWith(ResXConstants.ResxFileRef_TypeNameAndAssembly, StringComparison.Ordinal))
+            {
+                result = typeof(ResXFileRef);
                 return result;
             }
 
@@ -1047,7 +1054,7 @@ namespace System.Resources.NetStandard
         /// </summary>
         private bool IsDotNetAssembly(string assemblyPath)
         {
-            return assemblyPath != null && (assemblyPath.StartsWith(s_dotNetPath, StringComparison.OrdinalIgnoreCase) || assemblyPath.StartsWith(s_dotNetPathX86, StringComparison.OrdinalIgnoreCase));
+            return assemblyPath != null && s_dotNetPath != null && (assemblyPath.StartsWith(s_dotNetPath, StringComparison.OrdinalIgnoreCase) || assemblyPath.StartsWith(s_dotNetPathX86, StringComparison.OrdinalIgnoreCase));
         }
 
         public void ReferenceAssembly(AssemblyName name)
