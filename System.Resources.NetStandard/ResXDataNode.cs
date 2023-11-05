@@ -864,8 +864,8 @@ namespace System.Resources.NetStandard
         private Hashtable cachedAssemblies;
         private Hashtable cachedTypes;
 
-        private static readonly string s_dotNetPath = Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "dotnet\\shared");
-        private static readonly string s_dotNetPathX86 = Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), "dotnet\\shared");
+        private static readonly string s_dotNetPath = Environment.GetEnvironmentVariable("ProgramFiles") is { } programFiles ? Path.Combine(programFiles, "dotnet", "shared") : null;
+        private static readonly string s_dotNetPathX86 = Environment.GetEnvironmentVariable("ProgramFiles(x86)") is { } programFilesX86 ? Path.Combine(programFilesX86, "dotnet", "shared") : null;
 
         internal AssemblyNamesTypeResolutionService(AssemblyName[] names)
         {
@@ -1054,7 +1054,7 @@ namespace System.Resources.NetStandard
         /// </summary>
         private bool IsDotNetAssembly(string assemblyPath)
         {
-            return assemblyPath != null && (assemblyPath.StartsWith(s_dotNetPath, StringComparison.OrdinalIgnoreCase) || assemblyPath.StartsWith(s_dotNetPathX86, StringComparison.OrdinalIgnoreCase));
+            return assemblyPath != null && s_dotNetPath is not null && (assemblyPath.StartsWith(s_dotNetPath, StringComparison.OrdinalIgnoreCase) || assemblyPath.StartsWith(s_dotNetPathX86, StringComparison.OrdinalIgnoreCase));
         }
 
         public void ReferenceAssembly(AssemblyName name)
