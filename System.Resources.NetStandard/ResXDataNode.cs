@@ -47,13 +47,13 @@ namespace System.Resources.NetStandard
         // No public property to force using constructors for the following reasons:
         // 1. one of the constructors needs this field (if used) to initialize the object, make it consistent with the other ctrs to avoid errors.
         // 2. once the object is constructed the delegate should not be changed to avoid getting inconsistent results.
-        private Func<Type, string> typeNameConverter;
+        private Func<Type, string> typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(null);
 
         private ResXDataNode()
         {
         }
 
-        public ResXDataNode DeepClone(Func<Type,string> typeNameConverter = null)
+        public ResXDataNode DeepClone()
         {
             return new ResXDataNode
             {
@@ -68,7 +68,7 @@ namespace System.Resources.NetStandard
                 // we don't clone the value, because we don't know how
                 value = value,
                 fileRef = fileRef?.Clone(),
-                typeNameConverter = typeNameConverter ?? this.typeNameConverter
+                typeNameConverter = typeNameConverter
             };
         }
 
@@ -87,7 +87,7 @@ namespace System.Resources.NetStandard
                 throw (new ArgumentException(nameof(name)));
             }
 
-            this.typeNameConverter = typeNameConverter;
+            this.typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(typeNameConverter);
 
             Type valueType = (value == null) ? typeof(object) : value.GetType();
             if (value != null && !valueType.IsSerializable)
@@ -116,7 +116,7 @@ namespace System.Resources.NetStandard
 
             this.name = name;
             this.fileRef = fileRef ?? throw new ArgumentNullException(nameof(fileRef));
-            this.typeNameConverter = typeNameConverter;
+            this.typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(typeNameConverter);
         }
 
         internal ResXDataNode(DataNodeInfo nodeInfo, string basePath)

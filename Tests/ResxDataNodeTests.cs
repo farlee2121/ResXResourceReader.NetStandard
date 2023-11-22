@@ -116,25 +116,10 @@ namespace System.Resources.NetStandard.Tests
             {
                 reader.UseResXDataNodes = true;
                 var dataNodes = ReaderToNodes(reader);
-                
-                string mapThisLibraryToWinForms(Type type)
+
+                using (ResXResourceWriter writer = new ResXResourceWriter(new StringWriter(writerOutput)))
                 {
-                    if (type.AssemblyQualifiedName == typeof(ResXFileRef).AssemblyQualifiedName)
-                    {
-                        return NetStandard.ResXConstants.ResxFileRefTypeInfo;
-                    }
-                    else return null;
-                }
-
-                using (ResXResourceWriter writer = new ResXResourceWriter(new StringWriter(writerOutput), mapThisLibraryToWinForms))
-                {
-
-                    var nodesWithTypeMap = dataNodes
-                        .Select(node => node.DeepClone(mapThisLibraryToWinForms))
-                        .ToList();
-
-                    nodesWithTypeMap
-                        .ForEach(writer.AddResource);
+                    dataNodes.ForEach(writer.AddResource);
                     writer.Generate();
                 }
             }

@@ -102,7 +102,7 @@ namespace System.Resources.NetStandard
         bool hasBeenSaved;
         bool initialized;
 
-        private readonly Func<Type, string> typeNameConverter; // no public property to be consistent with ResXDataNode class.
+        private readonly Func<Type, string> typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(null); // no public property to be consistent with ResXDataNode class.
 
         /// <summary>
         ///  Base Path for ResXFileRefs.
@@ -119,7 +119,7 @@ namespace System.Resources.NetStandard
         public ResXResourceWriter(string fileName, Func<Type, string> typeNameConverter)
         {
             this.fileName = fileName;
-            this.typeNameConverter = typeNameConverter;
+            this.typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(typeNameConverter);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace System.Resources.NetStandard
         public ResXResourceWriter(Stream stream, Func<Type, string> typeNameConverter)
         {
             this.stream = stream;
-            this.typeNameConverter = typeNameConverter;
+            this.typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(typeNameConverter);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace System.Resources.NetStandard
         public ResXResourceWriter(TextWriter textWriter, Func<Type, string> typeNameConverter)
         {
             this.textWriter = textWriter;
-            this.typeNameConverter = typeNameConverter;
+            this.typeNameConverter = WinformsTypeMappers.InterceptWinformsTypes(typeNameConverter);
         }
 
         ~ResXResourceWriter()
