@@ -956,8 +956,8 @@ namespace System.Resources.NetStandard
                 return result;
             }
 
-            // hard-code the assembly name for ResXFileRef and replace it with our own type instead of loading the one from System.Windows.Forms
-            if (name == "System.Resources.ResXFileRef, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")
+            // Replace the WinForms ResXFileRef with the copy in this library
+            if (name.StartsWith(ResXConstants.ResxFileRef_TypeNameAndAssembly))
             {
                 result = typeof(ResXFileRef);
                 return result;

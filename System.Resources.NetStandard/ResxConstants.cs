@@ -6,5 +6,9 @@ namespace System.Resources.NetStandard{
 
         public static string ResHeaderReaderTypeName => ResHeaderReader.Split(',')[0].Trim();
         public static string ResHeaderWriterTypeName => ResHeaderWriter.Split(',')[0].Trim();
+
+
+        public const string ResxFileRefTypeInfo = "System.Resources.ResXFileRef, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+        public const string ResxFileRef_TypeNameAndAssembly = "System.Resources.ResXFileRef, System.Windows.Forms";
     }
 }
