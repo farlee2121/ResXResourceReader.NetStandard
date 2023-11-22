@@ -9,6 +9,10 @@ using System.Reflection;
 using System.Reflection.PortableExecutable;
 using System.Resources.Tests;
 using Xunit;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.ComponentModel.Design;
 
 namespace System.Resources.NetStandard.Tests
 {
@@ -66,13 +70,13 @@ namespace System.Resources.NetStandard.Tests
             };
             var dataNode = new ResXDataNode(nodeInfo, null);
             var typeResolver = new AssemblyNamesTypeResolutionService(Array.Empty<AssemblyName>());
-            
-            string resxPath = @".\nya-test.resx";
-            using (ResXResourceWriter writer = new ResXResourceWriter(resxPath))
+
+            StringBuilder resxOutput = new StringBuilder();
+            using (ResXResourceWriter writer = new ResXResourceWriter(new StringWriter(resxOutput)))
             {
                 writer.AddResource(dataNode);
             }
-            using(ResXResourceReader reader = new ResXResourceReader(resxPath))
+            using (ResXResourceReader reader = new ResXResourceReader(new StringReader(resxOutput.ToString())))
             {
                 var dictionary = new Dictionary<object, object>();
                 IDictionaryEnumerator dictionaryEnumerator = reader.GetEnumerator();
@@ -83,6 +87,59 @@ namespace System.Resources.NetStandard.Tests
 
                 Assert.Equal(referencedFileContent, dictionary.GetValueOrDefault(nodeInfo.Name));
             }
+        }
+
+        private List<ResXDataNode> ReaderToNodes(ResXResourceReader reader)
+        {
+            List<ResXDataNode> nodes = new List<ResXDataNode>();
+
+            IDictionaryEnumerator dict = reader.GetEnumerator();
+            while (dict.MoveNext())
+            {
+                nodes.Add((ResXDataNode)dict.Value);
+            }
+
+            return nodes;
+        }
+
+        [Fact]
+        public void ResxDataNode_ResXFileRefsWrittenBackWithSameAssemblyInfo()
+        {
+            // This test ensures compatibility with tooling like Visual Studio's visual ResX editor
+            
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            
+            string originalResx = Example.ResxWithFileRef;
+            StringBuilder writerOutput = new StringBuilder();
+
+            using (var reader = new ResXResourceReader(new StringReader(originalResx)))
+            {
+                reader.UseResXDataNodes = true;
+                var dataNodes = ReaderToNodes(reader);
+                
+                string mapThisLibraryToWinForms(Type type)
+                {
+                    if (type.AssemblyQualifiedName == typeof(ResXFileRef).AssemblyQualifiedName)
+                    {
+                        return NetStandard.ResXConstants.ResxFileRefTypeInfo;
+                    }
+                    else return null;
+                }
+
+                using (ResXResourceWriter writer = new ResXResourceWriter(new StringWriter(writerOutput), mapThisLibraryToWinForms))
+                {
+
+                    var nodesWithTypeMap = dataNodes
+                        .Select(node => node.DeepClone(mapThisLibraryToWinForms))
+                        .ToList();
+
+                    nodesWithTypeMap
+                        .ForEach(writer.AddResource);
+                    writer.Generate();
+                }
+            }
+
+            Assert.Equal(originalResx, writerOutput.ToString());
         }
     }
 }

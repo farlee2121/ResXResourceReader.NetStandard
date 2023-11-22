@@ -53,7 +53,7 @@ namespace System.Resources.NetStandard
         {
         }
 
-        internal ResXDataNode DeepClone()
+        public ResXDataNode DeepClone(Func<Type,string> typeNameConverter = null)
         {
             return new ResXDataNode
             {
@@ -68,7 +68,7 @@ namespace System.Resources.NetStandard
                 // we don't clone the value, because we don't know how
                 value = value,
                 fileRef = fileRef?.Clone(),
-                typeNameConverter = typeNameConverter
+                typeNameConverter = typeNameConverter ?? this.typeNameConverter
             };
         }
 

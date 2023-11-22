@@ -25,6 +25,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="TestResources\Files\ResxWithFileRef.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ResxWithFileRef.resx" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Example.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
