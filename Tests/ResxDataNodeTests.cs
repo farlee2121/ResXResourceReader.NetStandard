@@ -126,5 +126,34 @@ namespace System.Resources.NetStandard.Tests
 
             Assert.Equal(originalResx, writerOutput.ToString());
         }
+
+        [Fact]
+        public void ResxDataNode_CustomTypeConvertersDontOverwriteDefaultConverters()
+        {
+            string expectedIntTypeName = "some-text";
+            string customTypeConverter(Type type)
+            {
+                if (type == typeof(int)) return expectedIntTypeName;
+                else return null;
+            }
+
+            var intNode = new ResXDataNode("int-node", 1, customTypeConverter);
+
+            var fileRefNode = new ResXDataNode("file-node", new ResXFileRef("i-am-file.txt", typeof(string).AssemblyQualifiedName), customTypeConverter);
+
+
+            var expected =
+                (
+                    ("int-node", expectedIntTypeName),
+                    ("file-node", NetStandard.ResXConstants.ResxFileRefTypeInfo)
+                );
+            var actual =
+                (
+                    ("int-node", intNode.GetDataNodeInfo().TypeName),
+                    ("file-node", fileRefNode.GetDataNodeInfo().TypeName)
+                );
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
