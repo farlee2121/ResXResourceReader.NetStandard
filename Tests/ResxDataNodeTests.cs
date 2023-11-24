@@ -51,10 +51,13 @@ namespace System.Resources.NetStandard.Tests
             var typeResolver = new AssemblyNamesTypeResolutionService(Array.Empty<AssemblyName>());
             Assert.Equal("Test", dataNode.Name);
             Assert.Equal(Example.FileRef, dataNode.GetValue(typeResolver));
-            using (ResXResourceWriter resx = new ResXResourceWriter(@"C:\users\farle\Downloads\nya-test.resx"))
+
+            var tempFilePath = Path.GetTempFileName();
+            using (ResXResourceWriter resx = new ResXResourceWriter(tempFilePath))
             {
                 resx.AddResource(dataNode);
             }
+            File.Delete(tempFilePath);
         }
 
         [Fact]
@@ -124,7 +127,7 @@ namespace System.Resources.NetStandard.Tests
                 }
             }
 
-            Assert.Equal(originalResx, writerOutput.ToString());
+            Assert.Equal(originalResx, writerOutput.ToString().Replace("\r\n", "\n"));
         }
 
         [Fact]
