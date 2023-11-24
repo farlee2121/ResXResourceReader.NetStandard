@@ -957,7 +957,7 @@ namespace System.Resources.NetStandard
             }
 
             // Replace the WinForms ResXFileRef with the copy in this library
-            if (name.StartsWith(ResXConstants.ResxFileRef_TypeNameAndAssembly))
+            if (name.StartsWith(ResXConstants.ResxFileRef_TypeNameAndAssembly, StringComparison.Ordinal))
             {
                 result = typeof(ResXFileRef);
                 return result;
