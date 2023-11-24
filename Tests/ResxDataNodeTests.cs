@@ -52,12 +52,11 @@ namespace System.Resources.NetStandard.Tests
             Assert.Equal("Test", dataNode.Name);
             Assert.Equal(Example.FileRef, dataNode.GetValue(typeResolver));
 
-            var tempFilePath = Path.GetTempFileName();
-            using (ResXResourceWriter resx = new ResXResourceWriter(tempFilePath))
+            StringBuilder resxOutput = new StringBuilder();
+            using (ResXResourceWriter resx = new ResXResourceWriter(new StringWriter(resxOutput)))
             {
                 resx.AddResource(dataNode);
             }
-            File.Delete(tempFilePath);
         }
 
         [Fact]
