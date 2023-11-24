@@ -14,6 +14,5 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <RepositoryUrl>https://github.com/farlee2121/ResXResourceReader.NetStandard</RepositoryUrl>
 	  <PackageTags>ResX;ResXResourceReader;System.Resources;ResXResourceWriter;netstandard</PackageTags>
-	  <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 </Project>
