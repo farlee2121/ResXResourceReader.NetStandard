@@ -126,7 +126,7 @@ namespace System.Resources.NetStandard.Tests
                 }
             }
 
-            Assert.Equal(originalResx, writerOutput.ToString().Replace("\r\n", "\n"));
+            Assert.Equal(originalResx, writerOutput.ToString());
         }
 
         [Fact]
