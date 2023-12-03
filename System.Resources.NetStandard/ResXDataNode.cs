@@ -53,7 +53,7 @@ namespace System.Resources.NetStandard
         {
         }
 
-        public ResXDataNode DeepClone()
+        internal ResXDataNode DeepClone()
         {
             return new ResXDataNode
             {
