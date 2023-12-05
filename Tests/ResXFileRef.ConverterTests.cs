@@ -59,11 +59,12 @@ namespace System.Resources.NetStandard.Tests
 
             Assert.Equal(expected, result);
         }
+        
 
         [Fact]
         public void ConvertFrom_ReadsFileAsStringUsingEncodingFromRefString()
         {
-            var resxFileRefString = @"TestResources/Files/text.utf7.txt;System.String;utf-7";
+            var resxFileRefString = @"TestResources\Files\text.utf8.txt;System.String;utf-8";
             var expected = "Привет";
             var converter = new ResXFileRef.Converter();
 
