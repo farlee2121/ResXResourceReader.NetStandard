@@ -26,9 +26,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="ResxWithNullRef.resx" />
     <EmbeddedResource Remove="TestResources\Files\ResxWithFileRef.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ResxWithNullRef.resx">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ResxWithFileRef.resx" />
   </ItemGroup>
   <ItemGroup>
