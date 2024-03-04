@@ -6,13 +6,10 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Drawing;
 using System.Reflection;
-using System.Reflection.PortableExecutable;
 using System.Resources.Tests;
 using Xunit;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.Design;
 
 namespace System.Resources.NetStandard.Tests
 {
@@ -156,6 +153,69 @@ namespace System.Resources.NetStandard.Tests
                 );
 
             Assert.Equal(expected, actual);
+        }
+        
+        [Fact]
+        public void ResxDataNode_CreateForResXNullRef()
+        {
+            // Simulate an XML file stored in resources, which uses a ResXNullRef. The actual resx XML looks like:
+            /*
+               <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+               <data name="Test" type="System.Resources.ResXNullRef, System.Windows.Forms">
+                    <value />
+                </data>
+            */
+
+            var nodeInfo = new DataNodeInfo
+            {
+                Name = "Test",
+                ReaderPosition = new Point(1, 2),
+                TypeName = "System.Resources.ResXNullRef, System.Windows.Forms",
+                ValueData = "",
+            };
+            var dataNode = new ResXDataNode(nodeInfo, null);
+            var typeResolver = new AssemblyNamesTypeResolutionService(Array.Empty<AssemblyName>());
+            Assert.Equal("Test", dataNode.Name);
+            Assert.Null(dataNode.GetValue(typeResolver));
+
+            StringBuilder resxOutput = new StringBuilder();
+            using (ResXResourceWriter resx = new ResXResourceWriter(new StringWriter(resxOutput)))
+            {
+                resx.AddResource(dataNode);
+            }
+
+            Assert.Contains("<data name=\"Test\" type=\"System.Resources.ResXNullRef, System.Windows.Forms\">", resxOutput.ToString());
+        }
+        
+        [Fact]
+        public void ResxDataNode_ResXNullRef_RoundTrip()
+        {
+            var referencedFileContent = Example.ResxWithNullRef;
+            var nodeInfo = new DataNodeInfo
+            {
+                Name = "ResxWithNullRef",
+                ReaderPosition = new Point(1, 2),
+                TypeName = "System.Resources.ResXNullRef, System.Windows.Forms",
+                ValueData = ""
+            };
+            var dataNode = new ResXDataNode(nodeInfo, null);
+
+            StringBuilder resxOutput = new StringBuilder();
+            using (ResXResourceWriter writer = new ResXResourceWriter(new StringWriter(resxOutput)))
+            {
+                writer.AddResource(dataNode);
+            }
+            using (ResXResourceReader reader = new ResXResourceReader(new StringReader(resxOutput.ToString())))
+            {
+                var dictionary = new Dictionary<object, object>();
+                IDictionaryEnumerator dictionaryEnumerator = reader.GetEnumerator();
+                while (dictionaryEnumerator.MoveNext())
+                {
+                    dictionary.Add(dictionaryEnumerator.Key, dictionaryEnumerator.Value);
+                }
+
+                Assert.Equal(referencedFileContent, dictionary.GetValueOrDefault(nodeInfo.Name));
+            }
         }
     }
 }

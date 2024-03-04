@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace System.Resources.NetStandard
+﻿namespace System.Resources.NetStandard
 {
     internal static class WinformsTypeMappers
     {
@@ -13,12 +9,18 @@ namespace System.Resources.NetStandard
                 if (type.AssemblyQualifiedName == typeof(ResXFileRef).AssemblyQualifiedName)
                 {
                     return NetStandard.ResXConstants.ResxFileRefTypeInfo;
-                }
-                else
+                } 
+                
+                if (type.AssemblyQualifiedName == typeof(ResXNullRef).AssemblyQualifiedName)
                 {
-                    if (typeNameConverter != null) return typeNameConverter(type);
-                    else return null;
+                    return NetStandard.ResXConstants.ResxNullRefTypeInfo;
                 }
+                
+                
+                if (typeNameConverter != null) 
+                    return typeNameConverter(type);
+                
+                return null;
             };
         }
         

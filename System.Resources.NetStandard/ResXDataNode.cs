@@ -158,6 +158,11 @@ namespace System.Resources.NetStandard
                     }
                 }
             }
+
+            if (nodeType != null && nodeType.Equals(typeof(ResXNullRef)))
+            {
+                value = new ResXNullRef();
+            }
         }
 
         /// <summary>
@@ -619,11 +624,16 @@ namespace System.Resources.NetStandard
         /// </summary>
         public object GetValue(ITypeResolutionService typeResolver)
         {
+            if (value is ResXNullRef)
+            {
+                return null;
+            }
+            
             if (value != null)
             {
                 return value;
             }
-
+            
             object result = null;
             if (FileRefFullPath != null)
             {
@@ -960,6 +970,13 @@ namespace System.Resources.NetStandard
             if (name.StartsWith(ResXConstants.ResxFileRef_TypeNameAndAssembly, StringComparison.Ordinal))
             {
                 result = typeof(ResXFileRef);
+                return result;
+            }
+            
+            // Replace the WinForms ResXNullRef with the copy in this library
+            if (name.StartsWith(ResXConstants.ResXNullRef_TypeNameAndAssembly, StringComparison.Ordinal))
+            {
+                result = typeof(ResXNullRef);
                 return result;
             }
 
