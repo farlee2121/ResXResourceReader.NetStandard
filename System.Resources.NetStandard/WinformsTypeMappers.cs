@@ -8,19 +8,14 @@
             {
                 if (type.AssemblyQualifiedName == typeof(ResXFileRef).AssemblyQualifiedName)
                 {
-                    return NetStandard.ResXConstants.ResxFileRefTypeInfo;
-                } 
-                
-                if (type.AssemblyQualifiedName == typeof(ResXNullRef).AssemblyQualifiedName)
-                {
-                    return NetStandard.ResXConstants.ResxNullRefTypeInfo;
+                    return ResXConstants.ResxFileRefTypeInfo;
                 }
-                
-                
-                if (typeNameConverter != null) 
-                    return typeNameConverter(type);
-                
-                return null;
+                else if (type.AssemblyQualifiedName == typeof(ResXNullRef).AssemblyQualifiedName)
+                {
+                    return ResXConstants.ResxNullRefTypeInfo;
+                }
+                else if (typeNameConverter != null) return typeNameConverter(type);
+                else return null;
             };
         }
         
