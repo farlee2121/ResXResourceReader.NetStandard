@@ -6,8 +6,11 @@
 		  These classes are the baked-in .NET classes to programmatically read/update a ResX file.
 	  </Description>
 	  <Authors>Spencer Farley</Authors>
-	  <Version>1.2.0</Version>
+	  <Version>1.3.0</Version>
 	  <PackageReleaseNotes>
+		  ## 1.3.0
+		  Support ResXNullRef nodes
+		  
 		  ## 1.2.0
 		  Fix errors when working with file-based ResX resources (icons, images, sound, files, etc)
 		  
@@ -17,5 +20,6 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <RepositoryUrl>https://github.com/farlee2121/ResXResourceReader.NetStandard</RepositoryUrl>
 	  <PackageTags>ResX;ResXResourceReader;System.Resources;ResXResourceWriter;netstandard</PackageTags>
+	  <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
 </Project>
