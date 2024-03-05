@@ -102,7 +102,7 @@ namespace System.Resources.NetStandard.Tests
         }
 
         [Fact]
-        public void ResxDataNode_ResXFileRefsWrittenBackWithSameAssemblyInfo()
+        public void ResxDataNode_ResXFileRefs_WrittenBackWithSameAssemblyInfo()
         {
             // This test ensures compatibility with tooling like Visual Studio's visual ResX editor
             
@@ -190,7 +190,7 @@ namespace System.Resources.NetStandard.Tests
         [Fact]
         public void ResxDataNode_ResXNullRef_RoundTrip()
         {
-            var referencedFileContent = Example.ResxWithNullRef;
+            object referencedFileContent = null;
             var nodeInfo = new DataNodeInfo
             {
                 Name = "ResxWithNullRef",
@@ -216,6 +216,31 @@ namespace System.Resources.NetStandard.Tests
 
                 Assert.Equal(referencedFileContent, dictionary.GetValueOrDefault(nodeInfo.Name));
             }
+        }
+
+        [Fact]
+        public void ResxDataNode_ResXNullRefs_WrittenBackWithSameAssemblyInfo()
+        {
+            // This test ensures compatibility with tooling like Visual Studio's visual ResX editor
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            string originalResx = Example.ResxWithNullRef;
+            StringBuilder writerOutput = new StringBuilder();
+
+            using (var reader = new ResXResourceReader(new StringReader(originalResx)))
+            {
+                reader.UseResXDataNodes = true;
+                var dataNodes = ReaderToNodes(reader);
+
+                using (ResXResourceWriter writer = new ResXResourceWriter(new StringWriter(writerOutput)))
+                {
+                    dataNodes.ForEach(writer.AddResource);
+                    writer.Generate();
+                }
+            }
+
+            Assert.Equal(originalResx, writerOutput.ToString());
         }
     }
 }
