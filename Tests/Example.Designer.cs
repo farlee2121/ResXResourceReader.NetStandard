@@ -112,6 +112,25 @@ namespace System.Resources.Tests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;root&gt;
+        ///  &lt;xsd:schema id=&quot;root&quot; xmlns=&quot;&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;
+        ///    &lt;xsd:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot; /&gt;
+        ///    &lt;xsd:element name=&quot;root&quot; msdata:IsDataSet=&quot;true&quot;&gt;
+        ///      &lt;xsd:complexType&gt;
+        ///        &lt;xsd:choice maxOccurs=&quot;unbounded&quot;&gt;
+        ///          &lt;xsd:element name=&quot;metadata&quot;&gt;
+        ///            &lt;xsd:complexType&gt;
+        ///              &lt;xsd:sequence&gt;
+        ///                &lt;xsd:element name=&quot;va [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ResxWithNullRef {
+            get {
+                return ResourceManager.GetString("ResxWithNullRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text.
         /// </summary>
         internal static string text_ansi {
